@@ -8,5 +8,6 @@ public class Run {
 		
 		SnackMenu sm = new SnackMenu();
 //		sm.menu();
+		System.out.println("임시 수정");
 	}
 }
