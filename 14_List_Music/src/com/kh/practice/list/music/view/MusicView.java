@@ -36,10 +36,11 @@ public class MusicView {
 		System.out.println("7. 곡명 오름차순 정렬" );
 		System.out.println("8. 가수명 내림차순 정렬");
 		System.out.println("9. 종료");
+		System.out.println("0. 파일에 저장");
 		System.out.println("메뉴 번호 선택 : >>");
 		
 		String menuStr = sc.nextLine();
-		 menu =0;	//비정상입력 경우를 위한 초기값
+		 menu =-1;	//비정상입력 경우를 위한 초기값
 		try {
 			menu =Integer.parseInt(menuStr); //사용자 입력값을 menu에 대입
 		}catch (NumberFormatException e) {
@@ -51,6 +52,10 @@ public class MusicView {
 		
 		switch(menu) {
 		//정상입력경우
+		case 0: 
+			saveFile();
+			break;
+		
 		case 1:
 			addList();
 			break;
@@ -170,12 +175,49 @@ public class MusicView {
 	}
 		
 	public void setMusic() {
+		System.out.println("****** 특정 곡 정보 수정 ******");
+		System.out.println("수정할 곡명을 입력해주세요.");
+		String title = sc.nextLine();
+		System.out.println("변경할 곡 명을 입력해주세요");
+		String newTitle=sc.nextLine();
+		System.out.println("변경할 가수명을 입력해주세요.");
+		String newySinger = sc.nextLine();
+		
+		Music result = mc.setMusic(title, new Music(newTitle, newySinger));
+		if(result == null) {
+			System.out.println("수정할 곡이 없습니다.");
+			
+		}else {
+			System.out.printf( "000(%s,%s)의 값이 변경되었습니다.\n",result.getTitle(),result.getSinger());
+		}
+		mc.setMusic(null, null);
+		// 사용자에게 수정할 곡을 입력 하여 MusicController에 setMusic으로 검색 할 수 있게
+		// 값을 넘기며 수정할 곡 명과 가수 명을 받아 setMusic으로 값을 넘긴다.
+		// 검색 결과 값이 없으면 “수정할 곡이 없습니다.”, 검색 결과 값이 있고
+		// 수정 했으면 “000(곡 명, 가수 명)의 값이 변경 되었습니다.” 콘솔 창에 출력
 	
 }
 	public void ascTitle() {
-	
+		System.out.println("****** 곡 명 오름차순 정렬 ******");
+		int result = mc.ascTitle();
+		
 }
 	public void descSinger() {
-		
+		System.out.println("****** 가수 명 내림차순 정렬 ******");
+//		int result =mc.descSinger();
+		int result =mc.descSinger2();
+		if(result>0) {
+			System.out.println("정렬 성공");
+		}else {
+			System.out.println("정렬 실패");
+		}
 	}
+	public void saveFile() {
+		System.out.println("곡정보를 파일에 저장");
+		System.out.println("저장할 파일결로를 작성해주세요");
+		String fileName =sc.nextLine();
+		
+		//TODO
+	}
+	
 }
